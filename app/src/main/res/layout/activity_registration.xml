@@ -5,25 +5,94 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:background="@drawable/background_color"
+    android:gravity="center"
     tools:context=".RegistrationActivity">
 
-    <EditText
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.496"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_gravity="center_vertical|center_horizontal"
+        android:text="EduShare"
+        android:textSize="35sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:layout_marginTop="15sp"
+        android:textSize="15sp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/emailReader"
-        android:hint="Email ID"/>
+        android:text="Email ID"/>
+
 
     <EditText
+        android:layout_marginTop="10sp"
+        android:textSize="15sp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/passwordReader"
-        android:hint="Password"/>
+        android:id="@+id/emailReader" />
+
+    <TextView
+        android:layout_marginTop="15sp"
+        android:textSize="15sp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="User Name"/>
+
+    <EditText
+        android:layout_marginTop="10sp"
+        android:textSize="15sp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/nameReader" />
+
+    <TextView
+        android:layout_marginTop="15sp"
+        android:textSize="15sp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Password"/>
+
+    <EditText
+        android:layout_marginTop="10dp"
+        android:textSize="15sp"
+        android:inputType="textPassword"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/passwordReader" />
+
+    <RadioGroup
+        android:layout_width="wrap_content"
+        android:orientation="horizontal"
+        android:id="@+id/genderIdentification"
+        android:layout_height="wrap_content">
+        <RadioButton
+            android:layout_width="wrap_content"
+            android:text="Male"
+            android:layout_height="wrap_content"/>
+        <RadioButton
+            android:layout_marginLeft="20sp"
+            android:layout_width="wrap_content"
+            android:text="Female"
+            android:layout_height="wrap_content"/>
+    </RadioGroup>
 
     <Button
-        android:id="@+id/registerButton"
-        android:layout_width="match_parent"
+        android:textSize="15dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="75sp"
+        android:layout_gravity="center_vertical|center_horizontal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.496"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/loginButton"
+        android:id="@+id/registerButton"
         android:onClick="registerUser"
+        android:background="@drawable/button_background"
         android:text="Register" />
 
 </LinearLayout>

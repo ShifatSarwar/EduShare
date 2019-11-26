@@ -8,6 +8,8 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -15,10 +17,14 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 public class RegistrationActivity extends AppCompatActivity {
     private Button register;
     private EditText emailID;
+    private EditText userName;
+    private RadioGroup gender;
     private EditText password;
     private FirebaseAuth firebaseAuth;
     private FirebaseAuth.AuthStateListener firebaseAuthStateListener;
@@ -42,25 +48,40 @@ public class RegistrationActivity extends AppCompatActivity {
                 }
             }
         };
-
-        register=(Button) findViewById(R.id.registerButton);
-        emailID=(EditText) findViewById(R.id.emailReader);
-        password=(EditText) findViewById(R.id.passwordReader);
+        register=findViewById(R.id.registerButton);
+        emailID=findViewById(R.id.emailReader);
+        password=findViewById(R.id.passwordReader);
+        userName=findViewById(R.id.nameReader);
+        gender=findViewById(R.id.genderIdentification);
     }
 
     public void registerUser(View view) {
+        int selectID=gender.getCheckedRadioButtonId();
+        final RadioButton radioButton=findViewById(selectID);
+        if(radioButton.getText()==null) {
+            return;
+        }
         final String email=emailID.getText().toString();
         final String passCode=password.getText().toString();
+        final String uName=userName.getText().toString();
+        final String uGender=radioButton.getText().toString();
         firebaseAuth.createUserWithEmailAndPassword(email, passCode).addOnCompleteListener(RegistrationActivity.this,
                 new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if(!task.isSuccessful()) {
                             Toast.makeText(RegistrationActivity.this, "Try Again", Toast.LENGTH_SHORT).show();
+                        } else {
+                            String userID=firebaseAuth.getCurrentUser().getUid();
+                            DatabaseReference currentUserDB= FirebaseDatabase.getInstance().getReference()
+                                    .child("users").child("userid").child("name");
+                            currentUserDB.setValue(uName);
+                            currentUserDB=FirebaseDatabase.getInstance().getReference()
+                                    .child("users").child("userid").child("gender");
+                            currentUserDB.setValue(uGender);
                         }
                     }
                 });
-
     }
 
     @Override
